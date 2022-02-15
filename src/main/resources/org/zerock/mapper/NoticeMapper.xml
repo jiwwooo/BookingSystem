@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.NoticeMapper">
+
+
+	<select id="getNoticeList" resultType="org.zerock.dto.NoticeDTO">
+		select * from notice where
+		build_code=14 and delete_flag='0'
+	</select>
+
+	<select id="getNotice" resultType="org.zerock.dto.NoticeDTO">
+		select * from notice where
+		no=#{no} and delete_flag='0'
+	</select>
+
+	<insert id="insertNotice" parameterType="map">
+		insert into notice (no,
+		title, contents, delete_flag, created_at, updated_at, build_code)
+		values (nextval('notice_seq'), #{title}, #{contents}, '0',
+		now(), now() ,14)
+	</insert>
+
+
+	<update id="deleteNotice">
+		update notice set
+		delete_flag =1
+		where no=#{no}
+	</update>
+
+
+
+
+
+	<update id="updateNotice" parameterType="map">
+		update notice set
+		title=#{title},
+		contents=#{contents},
+		updated_at = current_date
+
+		where no=#{no}
+	</update>
+
+</mapper>

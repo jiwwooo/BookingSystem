@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.zerock.mapper.BookingMapper">
+
+
+	<select id="selectBooking" resultType="org.zerock.dto.BookingDTO">
+		select * from booking where build_code = 14 and name = #{name} and delete_flag = '0'
+	</select>
+
+
+	<insert id="insertBooking" parameterType="map">
+		insert into booking values(
+		nextval('booking_seq')
+		,#{room_no}
+		,#{name}
+		,#{phone}
+		,#{adult}
+		,#{child}
+		,#{start_date}
+		,#{end_date}
+		,#{options}
+		,'0'
+		,#{total_cost}
+		,'0'
+		,#{bank_name}
+		,#{bank_branch_code}
+		,#{bank_account_number}
+		,'0'
+		,now()
+		,now()
+		,14
+		)
+	</insert>
+</mapper>

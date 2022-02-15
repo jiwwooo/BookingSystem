@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.zerock.mapper.IndexMapper">
+
+	<select id="checkUser" resultType="org.zerock.dto.ConsultationDTO">
+		select * from consultation where name=#{name} and  passwd=#{passwd} and build_no = 14
+	</select>
+	
+	
+</mapper>

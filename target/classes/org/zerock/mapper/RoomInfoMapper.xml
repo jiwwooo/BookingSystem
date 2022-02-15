@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.zerock.mapper.RoomInfoMapper">
+
+
+	<select id="getRoomInfo" resultType="org.zerock.dto.RoomInfoDTO">
+		select * from "room_Info"
+		where no = ${no}
+	</select>
+
+
+	<update id="updatePhoto" parameterType="map">
+		update "room_Info" set images = #{images} where no =#{no}
+	</update>
+	
+	<update id="updateRoom" parameterType="map">
+		update "room_Info"
+		<set>
+			<trim suffix="," suffixOverrides=",">
+				<if test="room_title != null">
+				room_title=#{room_title}
+				</if>
+				<if test="max != 0">
+				max=#{max}
+				</if>
+				<if test="adult_cost != 0">
+				adult_cost = #{adult_cost}
+				</if>
+				<if test="child_cost != 0">
+				child_cost = #{child_cost}
+				</if>
+				<if test="explanation != null">
+				explanation = #{explanation}
+				</if>
+				<if test="images != null">
+				images = #{images}
+				</if>
+				<if test="color_code != null">
+				color_code = #{color_code}
+				</if>
+			</trim>
+		</set>
+		<where>
+			no=${no}
+		</where>
+	</update>
+
+</mapper>

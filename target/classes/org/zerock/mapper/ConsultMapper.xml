@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.ConsultMapper">
+
+<select id="checkUser" resultType="org.zerock.dto.ConsultationDTO">
+		select * from consultation where name=#{name} and passwd=#{passwd}
+</select>
+
+
+<insert id="insertReply" parameterType="map">
+		insert into consultation (no, grno, grgrod, depth, title, contents, name, lock_flag, delete_flag, created_at, updated_at, build_code )
+		values(nextval('consultation_seq'),#{grno},#{grgrod},#{depth},#{title}, #{contents},  #{name}, '0', '0', current_date, current_date ,14)
+</insert>
+
+<update id="deleteReply" >
+	update consultation set
+	delete_flag = 1
+	where no=#{no}	
+</update>
+	
+<!-- <select id="readReply" resultType="org.zerock.dto.ConsultationDTO">
+ select * from consultation where no =${no}
+
+</select>	
+
+<update id="updateReply">
+	update consultation set
+	title=#{title},
+	contents=#{contents},
+	updated_at = current_date
+	
+	where no=#{no}	
+</update>
+	 -->
+	
+<select id="getListReply" resultType="org.zerock.dto.ConsultationDTO">
+
+		select * from consultation where build_code=14 and delete_flag='0'
+
+</select>	
+	
+	
+	
+	<insert id="regConsult" parameterType="map">
+	
+	
+
+	
+		insert into consultation values 
+		( 	
+			nextval('consultation_seq'), '0', '0', '0', #{title}, #{contents}, #{name}, #{passwd},'0', '0', now(), now() , 14
+		)
+	
+	</insert>
+<!-- <insert id="regConsult" parameterType="map">
+		new post
+	IF grno IS NULL THEN
+	
+		insert into consultation values 
+		( 	
+			nextval('consultation_seq')
+			,select max(grno) +1 , grgrod, depth from consultation
+			, #{title}, #{contents},  #{name}, #{passwd},'0', '0', current_date, current_date ,14
+		)
+		reply post
+	ELSE
+		
+		insert into consultation values 
+			( 	
+				nextval('consultation_seq')
+				,select grno, grgrod + 1 , depth+1 from consultation
+				, #{title}, #{contents},  #{name}, #{passwd},'0', '0', current_date, current_date ,14
+			)	
+		
+	END IF;
+	
+</insert>
+	 -->
+<select id="getConsult" resultType="org.zerock.dto.ConsultationDTO">
+		select * from consultation where no=#{no} and delete_flag='0'
+</select>
+	
+	<select id="getConsultList" resultType="org.zerock.dto.ConsultationDTO">
+		select * from consultation where build_code=14 and delete_flag='0'
+	</select>
+
+
+<update id="updConsult" parameterType="map">
+	update consultation set
+	title=#{title},
+	contents=#{contents},
+	updated_at = current_date
+	
+	where no=#{no}	
+</update>
+	
+
+<update id="delConsult" >
+	update consultation set
+	delete_flag = 1
+	where no=#{no}	
+</update>
+	
+	
+</mapper>

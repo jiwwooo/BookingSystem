@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.SliderImagesMapper">
+
+
+
+
+<insert id="insertImages" parameterType="map">
+	<selectKey resultType="string" keyProperty="sort_no" order="BEFORE">
+		(SELECT MAX(sort_no::INTEGER) + 1)::character varying(10) FROM slider_images where build_code =14
+	</selectKey>
+	
+	
+	insert into slider_images 
+	values(
+	nextval('slider_images_seq')
+	,#{file_name}
+	,#{sort_no}
+	,'0'
+	,'0'
+	,now()
+	,now()
+	,14
+	)
+</insert>
+
+</mapper>
